@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dreams Tower PTY LTD – Home Décor & Interior Finishing</title>
+
+  <!-- Google Fonts: Playfair Display (display) + Poppins (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES – Colour Palette & Tokens
+       African-inspired: warm terracotta, deep forest green, gold,
+       off-white, and near-black.
+    ============================================================ */
+    :root {
+      --clr-gold:       #D4A017;
+      --clr-gold-light: #F0C84A;
+      --clr-terra:      #C1440E;   /* terracotta accent */
+      --clr-green:      #1B4332;   /* deep forest green */
+      --clr-green-mid:  #2D6A4F;
+      --clr-green-lite: #40916C;
+      --clr-bg:         #FAF7F2;   /* warm off-white */
+      --clr-surface:    #FFFFFF;
+      --clr-ink:        #1A1A1A;
+      --clr-ink-soft:   #4A4A4A;
+      --clr-muted:      #8A8A7A;
+      --clr-border:     #E8E0D0;
+      --clr-wa:         #25D366;   /* WhatsApp brand green */
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Poppins', sans-serif;
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --radius-xl:  32px;
+
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-hover:0 12px 40px rgba(0,0,0,0.14);
+      --shadow-btn:  0 4px 16px rgba(212,160,23,0.35);
+
+      --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--clr-bg);
+      color: var(--clr-ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a  { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* Utility */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      margin-bottom: 0.7rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.9rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--clr-ink);
+      margin-bottom: 1rem;
+    }
+    .section-title span { color: var(--clr-terra); font-style: italic; }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--clr-ink-soft);
+      max-width: 560px;
+      font-weight: 300;
+    }
+    .section-header { margin-bottom: 3.5rem; }
+    .section-header.center { text-align: center; }
+    .section-header.center .section-sub { margin: 0 auto; }
+
+    /* Fade-up animation (triggered by JS IntersectionObserver) */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--clr-border);
+      transition: box-shadow var(--transition);
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.09); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .nav-logo .logo-mark {
+      width: 90px; height: 50px;
+      /* background: var(--clr-green); */
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-logo .logo-mark svg { width: 22px; height: 22px; }
+    .nav-logo .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-logo .logo-text strong {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--clr-green);
+    }
+    .nav-logo .logo-text span {
+      font-size: 0.62rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--clr-muted);
+    }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.2rem;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--clr-ink-soft);
+      position: relative;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2px;
+      background: var(--clr-gold);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--clr-green); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--clr-gold);
+      color: var(--clr-ink) !important;
+      padding: 0.55rem 1.3rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600 !important;
+      font-size: 0.83rem !important;
+      transition: background var(--transition), transform var(--transition) !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--clr-gold-light) !important; transform: translateY(-1px); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px; height: 2px;
+      background: var(--clr-ink);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--clr-surface);
+      padding: 1.2rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--clr-border);
+      gap: 0.2rem;
+    }
+    .mobile-menu a {
+      padding: 0.65rem 0.4rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-bottom: 1px solid var(--clr-border);
+      color: var(--clr-ink-soft);
+      transition: color var(--transition), padding-left var(--transition);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--clr-green); padding-left: 0.8rem; }
+    .mobile-menu.open { display: flex; }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 7rem 0 4rem;
+      overflow: hidden;
+    }
+
+    /* Geometric background pattern */
+    #home::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 50%, rgba(212,160,23,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 70% at 10% 80%, rgba(27,67,50,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Decorative circle */
+    .hero-deco {
+      position: absolute;
+      right: -80px; top: 50%;
+      transform: translateY(-50%);
+      width: 620px; height: 620px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--clr-green) 0%, var(--clr-green-mid) 100%);
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    /* African-pattern strip on left */
+    .hero-pattern {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 6px;
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--clr-gold) 0px,
+        var(--clr-gold) 20px,
+        var(--clr-terra) 20px,
+        var(--clr-terra) 40px,
+        var(--clr-green) 40px,
+        var(--clr-green) 60px,
+        transparent 60px,
+        transparent 80px
+      );
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(212,160,23,0.12);
+      border: 1px solid rgba(212,160,23,0.3);
+      border-radius: 50px;
+      padding: 0.35rem 1rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--clr-gold);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.4rem;
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--clr-gold);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.5); opacity: 0.5; }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.12;
+      margin-bottom: 1.3rem;
+      color: var(--clr-ink);
+    }
+    .hero-title .accent { color: var(--clr-terra); font-style: italic; }
+    .hero-title .underline-gold {
+      position: relative;
+      display: inline-block;
+    }
+    .hero-title .underline-gold::after {
+      content: '';
+      position: absolute;
+      bottom: 2px; left: 0; right: 0;
+      height: 4px;
+      background: var(--clr-gold);
+      border-radius: 2px;
+      opacity: 0.5;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--clr-ink-soft);
+      font-weight: 300;
+      max-width: 480px;
+      margin-bottom: 2.2rem;
+      line-height: 1.75;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.8rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all var(--transition);
+    }
+    .btn-gold {
+      background: var(--clr-gold);
+      color: var(--clr-ink);
+      box-shadow: var(--shadow-btn);
+    }
+    .btn-gold:hover {
+      background: var(--clr-gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(212,160,23,0.45);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--clr-green);
+      border-color: var(--clr-green);
+    }
+    .btn-outline:hover {
+      background: var(--clr-green);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Hero stats row */
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2.8rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--clr-border);
+    }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--clr-green);
+      display: block;
+      line-height: 1;
+    }
+    .hero-stat-lbl {
+      font-size: 0.75rem;
+      color: var(--clr-muted);
+      font-weight: 400;
+    }
+
+    /* Hero visual side */
+    .hero-visual {
+      position: relative;
+    }
+    .hero-img-wrap {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 24px 72px rgba(0,0,0,0.18);
+    }
+    .hero-img-wrap img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+    }
+    /* Floating tag on image */
+    .hero-float-tag {
+      position: absolute;
+      bottom: 1.5rem; left: 1.5rem;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1.2rem;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .hero-float-icon {
+      width: 42px; height: 42px;
+      background: var(--clr-gold);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .hero-float-tag strong { font-size: 0.9rem; display: block; color: var(--clr-ink); }
+    .hero-float-tag span  { font-size: 0.75rem; color: var(--clr-muted); }
+
+    /* Gold corner accent on image */
+    .hero-corner {
+      position: absolute;
+      top: -14px; right: -14px;
+      width: 80px; height: 80px;
+      border-top: 4px solid var(--clr-gold);
+      border-right: 4px solid var(--clr-gold);
+      border-radius: 0 var(--radius-md) 0 0;
+      pointer-events: none;
+    }
+    .hero-corner-bl {
+      position: absolute;
+      bottom: -14px; left: -14px;
+      width: 80px; height: 80px;
+      border-bottom: 4px solid var(--clr-terra);
+      border-left: 4px solid var(--clr-terra);
+      border-radius: 0 0 0 var(--radius-md);
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+    ============================================================ */
+    #about {
+      padding: 6rem 0;
+      background: var(--clr-surface);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4.5rem;
+      align-items: center;
+    }
+
+    .about-img-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .about-img-grid img {
+      border-radius: var(--radius-md);
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .about-img-grid .tall {
+      grid-row: span 2;
+      height: 420px;
+    }
+
+    .about-content .section-sub { max-width: 100%; }
+
+    .about-features {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .about-feat {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+    }
+    .feat-icon {
+      width: 42px; height: 42px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      background: rgba(212,160,23,0.12);
+    }
+    .feat-icon.green { background: rgba(27,67,50,0.1); }
+    .feat-text strong { display: block; font-size: 0.92rem; margin-bottom: 0.15rem; color: var(--clr-ink); }
+    .feat-text p { font-size: 0.82rem; color: var(--clr-muted); font-weight: 300; }
+
+    /* ============================================================
+       SERVICES SECTION
+    ============================================================ */
+    #services {
+      padding: 6rem 0;
+      background: var(--clr-bg);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Subtle pattern behind services */
+    #services::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,160,23,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--clr-surface);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.8rem;
+      border: 1px solid var(--clr-border);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--clr-gold), var(--clr-terra));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(212,160,23,0.3);
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    .svc-icon-wrap {
+      width: 62px; height: 62px;
+      border-radius: var(--radius-md);
+      background: var(--clr-green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.7rem;
+      margin-bottom: 1.3rem;
+      transition: background var(--transition);
+    }
+    .service-card:hover .svc-icon-wrap { background: var(--clr-gold); }
+
+    .svc-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      color: var(--clr-ink);
+    }
+    .svc-desc {
+      font-size: 0.85rem;
+      color: var(--clr-muted);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+    .svc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 1.1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--clr-green);
+      transition: gap var(--transition), color var(--transition);
+    }
+    .svc-link:hover { gap: 0.6rem; color: var(--clr-gold); }
+
+    /* ============================================================
+       GALLERY SECTION
+    ============================================================ */
+    #gallery {
+      padding: 6rem 0;
+      background: var(--clr-green);
+      color: #fff;
+    }
+    #gallery .section-title { color: #fff; }
+    #gallery .section-title span { color: var(--clr-gold-light); }
+    #gallery .section-label { color: var(--clr-gold-light); }
+    #gallery .section-sub { color: rgba(255,255,255,0.65); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .gallery-item.featured {
+      grid-row: span 2;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .gallery-item.featured img { height: 100%; min-height: 350px; }
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(27,67,50,0.85) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.2rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-text {
+      color: #fff;
+    }
+    .gallery-overlay-text strong { display: block; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .gallery-overlay-text span  { font-size: 0.75rem; opacity: 0.75; }
+
+    /* Tag on gallery item */
+    .gallery-tag {
+      position: absolute;
+      top: 0.8rem; left: 0.8rem;
+      background: var(--clr-gold);
+      color: var(--clr-ink);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+    }
+
+    /* ============================================================
+       WHY CHOOSE US
+    ============================================================ */
+    #why {
+      padding: 6rem 0;
+      background: var(--clr-bg);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .why-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.2rem 1.4rem;
+      background: var(--clr-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--clr-border);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .why-item:hover {
+      border-color: var(--clr-gold);
+      box-shadow: var(--shadow-card);
+    }
+    .why-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--clr-gold);
+      color: var(--clr-ink);
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-item strong { display: block; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .why-item p { font-size: 0.82rem; color: var(--clr-muted); font-weight: 300; }
+
+    /* Testimonial card */
+    .testimonial-card {
+      background: var(--clr-green);
+      color: #fff;
+      border-radius: var(--radius-xl);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: -0.5rem; left: 1.5rem;
+      font-family: var(--font-display);
+      font-size: 9rem;
+      color: rgba(255,255,255,0.07);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .testimonial-card blockquote {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.65;
+      margin-bottom: 1.8rem;
+      position: relative;
+    }
+    .test-author { display: flex; align-items: center; gap: 0.8rem; }
+    .test-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: var(--clr-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--clr-ink);
+      flex-shrink: 0;
+    }
+    .test-info strong { display: block; font-size: 0.92rem; }
+    .test-info span   { font-size: 0.78rem; opacity: 0.65; }
+    .test-stars { color: var(--clr-gold); font-size: 0.9rem; margin-bottom: 0.3rem; }
+
+    /* ============================================================
+       CONTACT SECTION
+    ============================================================ */
+    #contact {
+      padding: 6rem 0;
+      background: var(--clr-surface);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 1.4rem; margin-top: 2rem; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.2rem 1.4rem;
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      transition: border-color var(--transition);
+    }
+    .contact-item:hover { border-color: var(--clr-gold); }
+    .contact-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      background: rgba(27,67,50,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-item strong { display: block; font-size: 0.82rem; color: var(--clr-muted); margin-bottom: 0.2rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .contact-item p { font-size: 0.95rem; color: var(--clr-ink); font-weight: 500; }
+
+    /* CTA box */
+    .contact-cta-box {
+      background: linear-gradient(135deg, var(--clr-green) 0%, var(--clr-green-mid) 100%);
+      border-radius: var(--radius-xl);
+      padding: 3rem 2.5rem;
+      color: #fff;
+      text-align: center;
+    }
+    .cta-emoji { font-size: 3rem; margin-bottom: 1rem; }
+    .contact-cta-box h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+    .contact-cta-box p {
+      font-size: 0.9rem;
+      opacity: 0.75;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--clr-wa);
+      color: #fff;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all var(--transition);
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    }
+    .btn-wa:hover {
+      background: #1ebe5c;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+    }
+    .btn-wa svg { width: 22px; height: 22px; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 1.5rem 0;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .btn-call {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      padding: 0.75rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all var(--transition);
+    }
+    .btn-call:hover { background: rgba(255,255,255,0.2); }
+
+    /* ============================================================
+       FLOATING WHATSAPP BUTTON
+    ============================================================ */
+    .wa-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: var(--clr-wa);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.45);
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: bounceIn 1s ease 1.5s both;
+    }
+    .wa-float:hover {
+      transform: scale(1.12);
+      box-shadow: 0 8px 36px rgba(37,211,102,0.55);
+    }
+    .wa-float svg { width: 30px; height: 30px; }
+    /* Ripple ring */
+    .wa-float::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 2px solid var(--clr-wa);
+      opacity: 0;
+      animation: ripple 2.5s ease-out infinite;
+    }
+    @keyframes ripple {
+      0%   { transform: scale(0.9); opacity: 0.6; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    @keyframes bounceIn {
+      0%   { transform: scale(0); opacity: 0; }
+      70%  { transform: scale(1.1); }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+    /* Tooltip */
+    .wa-float .wa-tooltip {
+      position: absolute;
+      right: calc(100% + 12px);
+      top: 50%; transform: translateY(-50%);
+      background: var(--clr-ink);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .wa-float .wa-tooltip::after {
+      content: '';
+      position: absolute;
+      left: 100%; top: 50%;
+      transform: translateY(-50%);
+      border: 5px solid transparent;
+      border-left-color: var(--clr-ink);
+    }
+    .wa-float:hover .wa-tooltip { opacity: 1; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--clr-ink);
+      color: rgba(255,255,255,0.7);
+      padding: 3.5rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-brand .logo-text strong { color: #fff; }
+
+    .footer-desc {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      margin-top: 1rem;
+      font-weight: 300;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 1.4rem;
+    }
+    .social-btn {
+      width: 38px; height: 38px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.8rem;
+      font-weight: 700;
+      transition: background var(--transition), color var(--transition);
+    }
+    .social-btn:hover { background: var(--clr-gold); color: var(--clr-ink); }
+
+    .footer-col h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 1.1rem;
+    }
+    .footer-col ul li {
+      margin-bottom: 0.6rem;
+    }
+    .footer-col ul li a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 300;
+      transition: color var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--clr-gold); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      font-size: 0.8rem;
+    }
+    .footer-bottom a { color: var(--clr-gold); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-item.featured { grid-row: span 1; }
+      .gallery-item.featured img { min-height: 220px; }
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about-grid,
+      .why-grid,
+      .contact-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-visual { order: -1; }
+      .hero-img-wrap img { height: 340px; }
+      nav .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 1rem; }
+      .section { padding: 4rem 0; }
+      #home { padding-top: 6rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-stats { gap: 1.2rem; flex-wrap: wrap; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      nav { padding: 0; }
+      .nav-inner { padding: 0 1rem; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <!-- Logo -->
+      <a href="#home" class="nav-logo">
+        <div class="logo-mark">
+          <!-- House / home icon -->
+        <img src="img/dreamslogo.png" alt="">
+        </div>
+        <div class="logo-text">
+          <strong>Dreams Tower</strong>
+          <span>PTY LTD &nbsp;·&nbsp; Malamulele</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li>
+          <a class="nav-cta"
+             href="https://wa.me/27796272276?text=Hello%2C%20I'm%20interested%20in%20your%20services"
+             target="_blank" rel="noopener">
+            WhatsApp Us ↗
+          </a>
+        </li>
+      </ul>
+
+      <!-- Mobile hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#home" class="mobile-link">Home</a>
+      <a href="#services" class="mobile-link">Services</a>
+      <a href="#about" class="mobile-link">About</a>
+      <a href="#gallery" class="mobile-link">Gallery</a>
+      <a href="#contact" class="mobile-link">Contact</a>
+      <a href="https://wa.me/27796272276?text=Hello%2C%20I'm%20interested%20in%20your%20services"
+         target="_blank" rel="noopener" style="color:var(--clr-wa);font-weight:600;">
+        📱 Chat on WhatsApp
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section id="home">
+    <div class="hero-pattern" aria-hidden="true"></div>
+    <div class="hero-deco" aria-hidden="true"></div>
+    <div class="container hero-grid">
+
+      <!-- Left: Copy -->
+      <div class="fade-up">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Serving Malamulele, Limpopo
+        </div>
+
+        <h1 class="hero-title">
+          Transform Your Home with
+          <span class="accent underline-gold">Stunning</span>
+          Interior Designs
+        </h1>
+
+        <p class="hero-sub">
+          From elegant ceiling designs to breathtaking 3D wall art — Dreams Tower PTY LTD brings
+          professional interior finishing to your doorstep in Limpopo.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-gold"
+             href="https://wa.me/27796272276?text=Hello%2C%20I'm%20interested%20in%20your%20services"
+             target="_blank" rel="noopener">
+            <!-- WhatsApp icon inline -->
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Get a Free Quote
+          </a>
+          <a class="btn btn-outline" href="#services">View Services</a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="hero-stats">
+          <div>
+            <span class="hero-stat-num">150+</span>
+            <span class="hero-stat-lbl">Projects Completed</span>
+          </div>
+          <div>
+            <span class="hero-stat-num">5★</span>
+            <span class="hero-stat-lbl">Client Rating</span>
+          </div>
+          <div>
+            <span class="hero-stat-num">10+</span>
+            <span class="hero-stat-lbl">Years Experience</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Visual -->
+      <div class="hero-visual fade-up" style="transition-delay:0.2s">
+        <div class="hero-corner" aria-hidden="true"></div>
+        <div class="hero-corner-bl" aria-hidden="true"></div>
+        <div class="hero-img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80&auto=format&fit=crop"
+            alt="Beautifully designed interior living room"
+            loading="eager"
+          />
+          <!-- Floating info tag -->
+          <div class="hero-float-tag">
+            <div class="hero-float-icon">🏆</div>
+            <div>
+              <strong>Top Rated in Limpopo</strong>
+              <span>Quality &amp; Craftsmanship</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       ABOUT SECTION
+  ============================================================ -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Image grid -->
+        <div class="about-img-grid fade-up">
+          <img
+            class="tall"
+            src="img/aboutus-1.jpeg"
+            alt="Interior finishing work"
+          />
+          <img
+            src="img/aboutus-2.jpg"
+            alt="Modern kitchen"
+          />
+          <img
+            src="img/aboutus-3.jpg"
+            alt="Modern tv stander"
+          />
+        </div>
+
+        <!-- Content -->
+        <div class="about-content fade-up" style="transition-delay:0.15s">
+          <span class="section-label">About Us</span>
+          <h2 class="section-title">Rooted in <span>Malamulele,</span> Building Dreams Across Limpopo</h2>
+          <p class="section-sub">
+            Dreams Tower PTY LTD is a locally owned home décor and interior finishing company
+            based in Malamulele, Limpopo. We combine creative flair with expert craftsmanship to
+            deliver beautiful, lasting transformations for homes and businesses.
+          </p>
+
+          <div class="about-features">
+            <div class="about-feat">
+              <div class="feat-icon">🎨</div>
+              <div class="feat-text">
+                <strong>Creativity at the Core</strong>
+                <p>Every design is tailored — no two homes are the same. We bring your vision to life.</p>
+              </div>
+            </div>
+            <div class="about-feat">
+              <div class="feat-icon green">🏡</div>
+              <div class="feat-text">
+                <strong>Local Expertise</strong>
+                <p>Deep knowledge of the local market and proud to serve our Malamulele community.</p>
+              </div>
+            </div>
+            <div class="about-feat">
+              <div class="feat-icon">✅</div>
+              <div class="feat-text">
+                <strong>Quality You Can Trust</strong>
+                <p>Premium materials, meticulous attention to detail, and guaranteed satisfaction.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SERVICES SECTION
+  ============================================================ -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header center fade-up">
+        <span class="section-label">What We Do</span>
+        <h2 class="section-title">Our <span>Services</span></h2>
+        <p class="section-sub">
+          Professional interior finishing services delivered with passion and precision.
+        </p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- Service 1 -->
+        <div class="service-card fade-up">
+          <div class="svc-icon-wrap">🏛️</div>
+          <h3 class="svc-title">Ceiling Designs</h3>
+          <p class="svc-desc">
+            Elegant pop ceilings, coffered designs, suspended ceilings and custom finishes that
+            add height, style, and character to any room.
+          </p>
+          <a class="svc-link"
+             href="https://wa.me/27796272276?text=Hello%2C%20I'm%20interested%20in%20Ceiling%20Design%20services"
+             target="_blank" rel="noopener">
+            Enquire Now →
+          </a>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card fade-up" style="transition-delay:0.1s">
+          <div class="svc-icon-wrap">🪵</div>
+          <h3 class="svc-title">Wall Units</h3>
+          <p class="svc-desc">
+            Built-in wall units, feature walls, entertainment centres and storage solutions
+            custom-crafted to match your home's personality.
+          </p>
+          <a class="svc-link"
+             href="https://wa.me/27796272276?text=Hello%2C%20I'm%20interested%20in%20Wall%20Unit%20services"
+             target="_blank" rel="noopener">
+            Enquire Now →
+          </a>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card fade-up" style="transition-delay:0.2s">
+          <div class="svc-icon-wrap">🔲</div>
+          <h3 class="svc-title">Tiling</h3>
+          <p class="svc-desc">
+            Floor tiling, wall tiling, bathroom and kitchen tile installations using premium
+            tiles and expert grouting for a flawless finish.
+          </p>
+          <a class="svc-link"
+             href="https://wa.me/27796272276?text=Hello%2C%20I'm%20interested%20in%20Tiling%20services"
+             target="_blank" rel="noopener">
+            Enquire Now →
+          </a>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-card fade-up" style="transition-delay:0.3s">
+          <div class="svc-icon-wrap">🎭</div>
+          <h3 class="svc-title">3D Wall Art</h3>
+          <p class="svc-desc">
+            Stunning textured 3D wall panels and artistic feature walls that create dramatic
+            focal points and transform plain spaces into showstoppers.
+          </p>
+          <a class="svc-link"
+             href="https://wa.me/27796272276?text=Hello%2C%20I'm%20interested%20in%203D%20Wall%20Art%20services"
+             target="_blank" rel="noopener">
+            Enquire Now →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       GALLERY SECTION
+  ============================================================ -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-header center fade-up" style="padding-bottom:0.5rem">
+        <span class="section-label">Our Work</span>
+        <h2 class="section-title">Project <span>Gallery</span></h2>
+        <p class="section-sub">
+          Before and after transformations — real homes, real results.
+        </p>
+      </div>
+
+      <div class="gallery-grid fade-up" style="transition-delay:0.1s">
+
+        <!-- Featured large item -->
+        <div class="gallery-item featured">
+          <span class="gallery-tag">Featured</span>
+          <img
+            src="img/service-1.jpg"
+            alt="Luxury ceiling design project"
+          />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">
+              <strong>Luxury Ceiling Makeover</strong>
+              <span>Malamulele Residence · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid items -->
+        <div class="gallery-item">
+          <span class="gallery-tag">Before &amp; After</span>
+          <img
+            src="img/service-2.jpg"
+            alt="Modern wall unit installation"
+          />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">
+              <strong>Custom Wall Unit</strong>
+              <span>Living Room · Limpopo</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="img/service-3.jpg"
+            alt="Premium tile installation"
+          />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">
+              <strong>Marble Tile Installation</strong>
+              <span>Kitchen &amp; Hallway</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <span class="gallery-tag">3D Art</span>
+          <img
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=75&auto=format&fit=crop"
+            alt="3D wall art feature"
+          />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">
+              <strong>Textured 3D Feature Wall</strong>
+              <span>Master Bedroom</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1489171078254-c3365d6e359f?w=500&q=75&auto=format&fit=crop"
+            alt="Bathroom renovation"
+          />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">
+              <strong>Bathroom Renovation</strong>
+              <span>Full Tile &amp; Ceiling Redo</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       WHY CHOOSE US SECTION
+  ============================================================ -->
+  <section id="why">
+    <div class="container">
+      <div class="why-grid">
+
+        <!-- Left: list -->
+        <div class="fade-up">
+          <span class="section-label">Why Dreams Tower</span>
+          <h2 class="section-title">Why Families <span>Choose Us</span></h2>
+          <p class="section-sub">
+            We're not just contractors — we're your neighbours, invested in making your home the best it can be.
+          </p>
+
+          <div class="why-list">
+            <div class="why-item">
+              <div class="why-num">1</div>
+              <div>
+                <strong>💰 Affordable Pricing</strong>
+                <p>Transparent, fair quotes with no hidden fees — premium quality doesn't have to cost a fortune.</p>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-num">2</div>
+              <div>
+                <strong>⏱️ Always Reliable</strong>
+                <p>We show up on time, meet deadlines, and communicate every step of the way.</p>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-num">3</div>
+              <div>
+                <strong>🎓 Fully Professional</strong>
+                <p>Skilled, experienced team using quality materials and industry-best practices.</p>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-num">4</div>
+              <div>
+                <strong>📍 Proudly Local</strong>
+                <p>Born and built in Malamulele — we understand local homes and local needs better than anyone.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: testimonial -->
+        <div class="fade-up" style="transition-delay:0.2s">
+          <div class="testimonial-card">
+            <div class="test-stars">★★★★★</div>
+            <blockquote>
+              "Dreams Tower completely transformed our lounge and kitchen. The ceiling design
+              is absolutely beautiful, and the tiling is immaculate. Best money we ever spent
+              on our home!"
+            </blockquote>
+            <div class="test-author">
+              <div class="test-avatar">TM</div>
+              <div class="test-info">
+                <strong>Thandi Mabunda</strong>
+                <span>Malamulele Homeowner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CONTACT SECTION
+  ============================================================ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label">Get In Touch</span>
+        <h2 class="section-title">Ready to <span>Start Your Project?</span></h2>
+        <p class="section-sub">Reach out today for a free consultation and quote. We'd love to help.</p>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- Contact details -->
+        <div class="fade-up">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">📱</div>
+              <div>
+                <strong>WhatsApp / Phone</strong>
+                <p>079 627 2276</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <strong>Location</strong>
+                <p>Malamulele, Limpopo, South Africa</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">⏰</div>
+              <div>
+                <strong>Working Hours</strong>
+                <p>Monday – Saturday &nbsp;|&nbsp; 07:00 – 18:00</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🔧</div>
+              <div>
+                <strong>Services</strong>
+                <p>Ceiling Designs · Wall Units · Tiling · 3D Wall Art</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA box -->
+        <div class="fade-up" style="transition-delay:0.15s">
+          <div class="contact-cta-box">
+            <div class="cta-emoji">💬</div>
+            <h3>Chat with Us Now</h3>
+            <p>
+              Message us on WhatsApp for a free quote, to ask questions, or to book a
+              site visit. We respond fast!
+            </p>
+
+            <a class="btn-wa"
+               href="https://wa.me/27796272276?text=Hello%2C%20I'm%20interested%20in%20your%20home%20d%C3%A9cor%20services.%20Can%20we%20discuss%20my%20project%3F"
+               target="_blank" rel="noopener">
+              <!-- WhatsApp SVG -->
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Start WhatsApp Chat
+            </a>
+
+            <div class="divider">or call directly</div>
+
+            <a class="btn-call" href="tel:+27796272276">
+              📞 &nbsp;079 627 2276
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand column -->
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="logo-mark">
+             <img src="img/dreamslogo.png" alt="">
+            </div>
+            <div class="logo-text">
+              <strong>Dreams Tower</strong>
+              <span>PTY LTD</span>
+            </div>
+          </div>
+          <p class="footer-desc">
+            Professional home décor and interior finishing services in Malamulele, Limpopo.
+            Transforming homes with creativity, quality, and local pride since 2016.
+          </p>
+          <!-- Social placeholders -->
+          <div class="footer-socials">
+            <a class="social-btn"
+               href="https://wa.me/27796272276"
+               target="_blank" rel="noopener"
+               title="WhatsApp">WA</a>
+            <a class="social-btn" href="#" title="Facebook">FB</a>
+            <a class="social-btn" href="#" title="Instagram">IG</a>
+            <a class="social-btn" href="#" title="TikTok">TK</a>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Our Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="footer-col">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#services">Ceiling Designs</a></li>
+            <li><a href="#services">Wall Units</a></li>
+            <li><a href="#services">Tiling</a></li>
+            <li><a href="#services">3D Wall Art</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="footer-bottom">
+        <span>© 2025 Dreams Tower PTY LTD · Malamulele, Limpopo, South Africa</span>
+        <span>
+          Made with ❤️ in Limpopo &nbsp;·&nbsp;
+          <a href="https://wa.me/27796272276" target="_blank" rel="noopener">079 627 2276</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       FLOATING WHATSAPP BUTTON
+  ============================================================ -->
+  <a class="wa-float"
+     href="https://wa.me/27796272276?text=Hello%2C%20I'm%20interested%20in%20your%20services"
+     target="_blank"
+     rel="noopener"
+     aria-label="Chat on WhatsApp">
+    <span class="wa-tooltip">Chat with us!</span>
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* --- Navbar: add .scrolled class on scroll --- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    /* --- Mobile hamburger menu --- */
+    const hamburger    = document.getElementById('hamburger');
+    const mobileMenu   = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+
+    /* Close mobile menu when a link is clicked */
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+      });
+    });
+
+    /* --- Scroll-triggered fade-up animations (IntersectionObserver) --- */
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); /* animate only once */
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    fadeEls.forEach(el => observer.observe(el));
+
+    /* --- Smooth active-link highlighting in nav --- */
+    const sections  = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 100) current = sec.getAttribute('id');
+      });
+      navAnchors.forEach(a => {
+        a.style.color = '';
+        if (a.getAttribute('href') === '#' + current) {
+          a.style.color = 'var(--clr-green)';
+        }
+      });
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
